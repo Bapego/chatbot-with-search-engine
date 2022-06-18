@@ -9,14 +9,14 @@ A program két részből áll:
 2.	Csetbot
 
 Felhasznált technológiák:
-●	Rivescript
-●	Maven
-●	PostgreSQL
-●	Java és Java ServerFaces (JSF)
-●	XHTML
-●	Heroku felhőszolgáltatás
-●	Javascript
-●	CSS
-●	Perl
-●	IntelliJ fejlesztőkörnyezet
+- Rivescript
+- Maven
+- PostgreSQL
+- Java és Java ServerFaces (JSF)
+- XHTML
+- Heroku felhőszolgáltatás
+- Javascript
+- CSS
+- Perl
+- IntelliJ fejlesztőkörnyezet
 
