@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="297.00000000000006" y="266.0">hu.pte.ttk.barath.managedbeans.ProposelManagedBean</node>
+    <node x="0.0" y="527.0">hu.pte.ttk.barath.data.QA</node>
+    <node x="271.0" y="527.0">hu.pte.ttk.barath.data.Answer</node>
+    <node x="543.0" y="255.0">hu.pte.ttk.barath.handlers.HTMLHandler</node>
+    <node x="540.5" y="0.0">hu.pte.ttk.barath.handlers.KeyWordHandler</node>
+    <node x="644.0" y="527.0">hu.pte.ttk.barath.chatbot.JavaMacros</node>
+    <node x="455.0" y="527.0">hu.pte.ttk.barath.TTKBot.TtkBotApplication</node>
+    <node x="805.0" y="310.0">hu.pte.ttk.barath.chatbot.ChatBot</node>
+    <node x="967.0" y="189.0">hu.pte.ttk.barath.managedbeans.QAManagedBean</node>
+    <node x="0.0" y="233.0">hu.pte.ttk.barath.handlers.DBHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="hu.pte.ttk.barath.handlers.DBHandler" target="hu.pte.ttk.barath.handlers.KeyWordHandler">
+      <point x="0.0" y="-102.5" />
+      <point x="138.5" y="159.0" />
+      <point x="565.2" y="159.0" />
+      <point x="-98.79999999999995" y="69.5" />
+    </edge>
+    <edge source="hu.pte.ttk.barath.chatbot.ChatBot" target="hu.pte.ttk.barath.handlers.KeyWordHandler">
+      <point x="0.0" y="-25.5" />
+      <point x="876.0" y="169.0" />
+      <point x="713.4000000000001" y="169.0" />
+      <point x="49.40000000000009" y="69.5" />
+    </edge>
+    <edge source="hu.pte.ttk.barath.managedbeans.ProposelManagedBean" target="hu.pte.ttk.barath.handlers.KeyWordHandler">
+      <point x="0.0" y="-69.5" />
+      <point x="410.00000000000006" y="169.0" />
+      <point x="614.6000000000001" y="169.0" />
+      <point x="-49.39999999999998" y="69.5" />
+    </edge>
+    <edge source="hu.pte.ttk.barath.handlers.HTMLHandler" target="hu.pte.ttk.barath.handlers.KeyWordHandler">
+      <point x="0.0" y="-80.5" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="hu.pte.ttk.barath.managedbeans.QAManagedBean" target="hu.pte.ttk.barath.handlers.KeyWordHandler">
+      <point x="0.0" y="-146.5" />
+      <point x="1076.5" y="159.0" />
+      <point x="762.8000000000002" y="159.0" />
+      <point x="98.80000000000007" y="69.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="372.4999999999999" y="333.4444444444445" />
+  <SelectedNodes>
+    <node>hu.pte.ttk.barath.managedbeans.ProposelManagedBean</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>TTKBot</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Ez a PTE TTK Csetbot asszisztensének javaslat oldala"/>
+    <meta name="keywords" content="PTE, TTK, Chatbot, Asszisztens, Szakdolgozat, javaslat"/>
+    <meta name="author" content="Baráth Péter Gergő"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</h:head>
+<h:body>
+    <h1>Javaslat beküldése</h1>
+    <h3>Köszönjük, hogy javaslatával támogatja a TTKBot működését. Kérem a kulcsszavakat enterrel elválasztva írja be a Kulcsszavak mezőbe,
+     míg a hozzá tartozó linket alá. Majd a Mentés gombbal mentse el az adatokat.</h3>
+    <h:form>
+        <p:growl id="growl" showDetail="false" rendered="#{proposelManagedBean.ok}"/>
+        #{proposelManagedBean.setOk(false)}
+        <h:panelGrid id="grid">
+            <p:outputLabel value="Kulcsszavak" />
+            <p:chips id="keywords" value="#{proposelManagedBean.keywords}" required="true"
+                     requiredMessage="Kérem írjon be legalább egy kulcsszót!" placeholder="Kulcsszavak... "/>
+            <p:message for="keywords"/>
+
+            <p:outputLabel value="Link: " />
+            <p:inputText id="link" value="#{proposelManagedBean.link}" autocomplete="off" required="true"
+                         requiredMessage="Kérem írjon be egy linket!"
+                         validatorMessage="A link helyes formátuma: http(s)://www.(aloldal.)pte.hu/(allapok)" placeholder="Link...">
+            <f:validateRegex pattern="(http(s)?://)?www.?([\w.]+)?pte.hu?(/)?([\w.-@öüóúőűáéíÍÉÁŰÚŐÓÜÖ]+)"/>
+
+            </p:inputText>
+            <p:message for="link" />
+
+            <p:commandButton value="Mentés" action="#{proposelManagedBean.saveToDB}" icon="ui-icon-check" update="@form"/>
+        </h:panelGrid>
+    </h:form>
+
+    <!-- Javascript -->
+    <script type="text/javascript">
+    </script>
+</h:body>
+</html>

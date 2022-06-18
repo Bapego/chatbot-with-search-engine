@@ -1,0 +1,212 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<h:head>
+    <title>TTKBot</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Ez a PTE TTK Csetbot asszisztensének Demo weboldala"/>
+    <meta name="keywords" content="PTE, TTK, Chatbot, Asszisztens, Szakdolgozat"/>
+    <meta name="author" content="Baráth Péter Gergő"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+
+    <!-- Stílus - CSS -->
+    <style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        * {
+            box-sizing: border-box;
+        }
+        div.window {
+            width: 500px;
+            height: 200px;
+            overflow: scroll;
+        }
+        .container {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 260px;
+            hyphens: auto;
+        }
+
+        .darker {
+            border-color: #ccc;
+            background-color: #ddd;
+        }
+
+        .darkerlink {
+            border-color: #ccc;
+            background-color: #ddd;
+            hyphens: auto;
+            word-break: break-all;
+        }
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .container img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right:0;
+        }
+
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+        .time-left {
+            float: left;
+            color: #999;
+        }
+        /* Button used to open the chat form - fixed at the bottom of the page */
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        /* The popup chat - hidden by default */
+        .chat-popup {
+            display: inline;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+            max-height: 500px;
+            overflow:auto;
+        }
+
+        /* Full-width textarea */
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        /* When the textarea gets focus, do something */
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top:10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+    </style>
+</h:head>
+<h:body>
+    Ez a Weboldal
+    <button class="open-button" onclick="openForm()">Chat</button>
+    <div class="chat-popup" id="myForm">
+        <h:form id="window" class="form-container">
+                <!-- Csetablaknak álcázott táblázat. A kérdés balra igazítot, a válasz jobbra. -->
+                <h:dataTable value="#{qAManagedBean.QAList}" var="qa">
+                    <h:column style="float: right">
+                        <h:panelGroup layout="block" styleClass="container" rendered="#{qa.question.equals('') == false}">
+                            <img src="faceless_avatar.png" alt="Avatar" style="width:100%;"/>
+                            <p>#{qa.question}</p>
+                        </h:panelGroup>
+                        <!-- Trükk: listába tesszük az Answer objektumokat -->
+                        <ui:repeat var="item" value="#{qa.answerList}">
+                            <h:panelGroup onsubmit="return false;" layout="block" rendered="#{qAManagedBean.link(item.answer) == false}" styleClass="container darker" >
+                                <img src="robot_avatar.png" alt="Avatar" class="right" style="width:100%;"/>
+                                <h:outputLabel value="#{item.answer}"/>
+                            </h:panelGroup>
+                            <h:panelGroup onsubmit="return false;" layout="block" rendered="#{qAManagedBean.link(item.answer) == true}" styleClass="container darkerlink" >
+                                <img src="robot_avatar.png" alt="Avatar" class="right" style="width:100%;"/>
+                                <h:outputLink value = "#{item.answer}">#{item.answer}</h:outputLink>
+                                <h:commandButton value="^"  action="#{qAManagedBean.plusPriority(item.id)}" styleClass="save" rendered="#{qAManagedBean.link(item.answer) == true}"/>
+                            </h:panelGroup>
+                        </ui:repeat>
+                    </h:column>
+                </h:dataTable>
+                <h:outputText/>
+                #{qAManagedBean.okPlusReplys()}
+                <!-- gomb lekérdezi az adott kérdésre talált válaszokat -->
+            <h:commandButton value="További találatok"  action="#{qAManagedBean.plusLevel(qAManagedBean.selectedQA)}" styleClass="save" rendered="#{qAManagedBean.moreMsg}"/>
+                <h:inputText value="#{qAManagedBean.selectedQA.question}"  onkeypress="if( event.keyCode == 13){if(document.activeElement.type == 'text') return false;}" autocomplete="off" placeholder="Üzenet..."/>
+                <h:commandButton value="Küldés" action="#{qAManagedBean.response(qAManagedBean.selectedQA)}" styleClass="save" />
+                <!-- gomb, amely előhozza a jvaslat oldalt -->
+            <a href="/javaslat.xhtml" class="w3-button w3-white">javaslat</a>
+            <h:commandButton value="Üzenetek törlése" action="#{qAManagedBean.deleteMsg()}" styleClass="save"/>
+            <button type="button" class="btn cancel" onclick="closeForm()">Bezár</button>
+        </h:form>
+    </div>
+
+    <!-- Javascript -->
+    <script type="text/javascript">
+
+        //A görgő lentartásáért felelős metódus
+        function updateScroll(){
+            var element = document.getElementById("window");
+            element.scrollTop = element.scrollHeight;
+            }
+            //Egy perc múlva leugrik a beszélgetés aljára
+        setInterval(updateScroll,600000);
+        updateScroll();
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+    </script>
+</h:body>
+</html>

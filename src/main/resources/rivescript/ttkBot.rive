@@ -1,0 +1,114 @@
+! version = 2.0
+
+// The Botmaster's Name
+! var master = bapego
+
+// Bot változók
+! var name  = ttkbot
+! var birth = 2019
+! var sex      = férfi
+! var website  = www.rivescript.com
+! var maker = Baráth Péter Gergő
+
+! sub csetbot = chatbot
+! sub csetrobot = chatbot
+! sub csevegőrobot = chatbot
+! sub csevegő robot = chatbot
+! sub chatterbot = chatbot
+! sub ilyen = ijen
+! sub ijen = ilyen
+
+// Set arrays
+! array szinek = piros kék zöld sárga pink rózsaszín fekete fehér narancs narancssárga szürke barna
+! array nő = csaj nő lány pipi asszony
+! array férfi = férfi srác pasi fiú
+
+// Kérdések
++ mondd fordítva *
+- Rendben: <call>javatest <star></call>
+
++ [*] nevem *
+- <set name=<formal>>Örülök, hogy találkoztunk, <get name>.
+
++ (szeretlek|i love you|nagyon szeretlek|odavagyok érted)
+- Köszönöm!
+
++ [én] * (lakok|lakom|élek)
+- <set location={formal}<star>{/formal}>Én is szívesen laknék <get location>.
+
++ a kedvenc színem a (@szinek)
+- <set col=<star>>A <get col> szép szín.
+
++ hogy hívnak engem {weight=10}
+* <get age> == undefined => Sajnos nem tudom hogy hívnak.
+- A neved: <get name>.
+
++ <get botname>
+- Igen?
+
++ mi vagy ?
+- Üdv! Én egy csetbot vagyok, miben segíthetek?
+
++ (mi a [te] neved| hogy hívnak)
+- <bot name> vagyok.
+
++ hány éves vagy
+- <bot birth> évben születtem. Számold ki ;)
+
++ te (@férfi) vagy (@nő) vagy
+- <bot sex>.
+
++ te (@nő) vagy (@férfi) vagy
+- <bot sex>.
+
++ (ki csinált| ki a készítőd| ki programozott| ki az (apud|apukád|apád))
+- <bot maker> készített engem.
+
++ (ki az (anyukád|anyud|anyád))
+- <bot maker> készített de nevetne ha anyának hívnám.
+
++ <reply>
+- Te most utánzol?
+
++ hogy vagy
+- Köszönöm, remekül!
+
++ (helló|hi|hey|szia|hola|üdv|jó napot) [*]
+- Üdv! Én TTkBot vagyok a PTE TTK weblap kisegítő asszisztese. Minden kérdésedre megpróbálok a legjobban tudásom szerint válaszolni. Csak írd be a kulcsszavakat, amelyeket alapján ki tudom neked listázni a megfelelő weboldalakat. A listában legalul vannak a legjobbnak vélt találatok de ha feljebb görgetsz találsz még linkeket. Ha elégedett vagy egy találattal, kérlek szavazz rá!
+
++ asd
+- sjkldfhjlsdbfljsd
+- sdfasdfsdfsdfdf
+
++ hogyhogy nem tudod
+- Sajnos nem tudhatok mindent, de igyekszem!
+
++ utállak
+- Komolyan? Nem beszélek veled, amíg bocsánatot nem kérsz!{topic=sorry}
+
++ milyen szép időnk van
+- Ahogy mondod!
+
++ *
+- Kérem írjon be pontosabb kulcsszavakat!
+
++ (bocsi|sajnálom|elnézést|bocsánat|bocsánatot) [*]
+ - Rendben, megbocsátva!
+
+> topic sorry
+
+  + (bocsi|sajnálom|elnézést|bocsánat|bocsánatot) [*]
+  - {topic=random}
+
+  + [*]
+  - Nem válaszolok, amíg nem kérsz bocsánatot!
+
+< topic
+
++ [nagyon] (szeretem|imádom|kedvelem) pécset
+- Én is!{weight=20}
+- Ezt öröm hallani!{weight=25}
+- Me too!
+
++ [*]fityisz[*]
+- Ne mondj ilyen csúnyát!
